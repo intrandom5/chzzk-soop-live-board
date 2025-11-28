@@ -142,3 +142,9 @@ live-stream-app/
   - `api.ts`: fetch helpers  
   - `storage.ts`: LocalStorage helpers  
   - `types.ts`: TypeScript types
+
+## Used API
+
+- https://github.com/kimcore/chzzk
+- https://github.com/maro5397/soop
+- These are unofficial APIs, so the service may stop working or behave differently if the upstream APIs change.
