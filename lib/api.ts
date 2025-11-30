@@ -18,7 +18,11 @@ export async function fetchStreamerInfo(
   channelId: string
 ): Promise<StreamerApiResponse | null> {
   try {
-    const res = await fetch(`/api/${platform}/${channelId}`);
+    // 캐시 방지를 위해 타임스탬프 쿼리 파라미터 추가
+    const timestamp = Date.now();
+    const res = await fetch(`/api/${platform}/${channelId}?t=${timestamp}`, {
+      cache: 'no-store',
+    });
     
     if (!res.ok) {
       console.error(`Failed to fetch ${platform}/${channelId}: ${res.status}`);

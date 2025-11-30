@@ -1,13 +1,22 @@
 'use client';
 
 import { Streamer } from '@/lib/types';
+import { useMemo } from 'react';
 
 interface LiveCardProps {
   streamer: Streamer;
+  refreshKey?: number; // 새로고침 시 변경되는 키
 }
 
-export default function LiveCard({ streamer }: LiveCardProps) {
+export default function LiveCard({ streamer, refreshKey }: LiveCardProps) {
   const platformColor = streamer.platform === 'chzzk' ? 'bg-emerald-500' : 'bg-blue-500';
+  
+  // 썸네일 URL에 타임스탬프 추가하여 브라우저 캐시 우회
+  const thumbnailUrl = useMemo(() => {
+    if (!streamer.thumbnail) return null;
+    const separator = streamer.thumbnail.includes('?') ? '&' : '?';
+    return `${streamer.thumbnail}${separator}t=${refreshKey || Date.now()}`;
+  }, [streamer.thumbnail, refreshKey]);
   
   const formatViewerCount = (count: number) => {
     if (count >= 10000) {
@@ -31,9 +40,9 @@ export default function LiveCard({ streamer }: LiveCardProps) {
       <div className="relative rounded-xl overflow-hidden border-2 border-zinc-700 group-hover:border-zinc-500 transition-all duration-200">
         {/* 썸네일 */}
         <div className="relative aspect-video bg-zinc-800">
-          {streamer.thumbnail ? (
+          {thumbnailUrl ? (
             <img
-              src={streamer.thumbnail}
+              src={thumbnailUrl}
               alt={streamer.title}
               className="w-full h-full object-cover"
             />

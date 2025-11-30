@@ -39,7 +39,7 @@ export default function Home() {
         )}
         
         {/* 라이브 섹션 */}
-        <LiveCarousel streamers={liveStreamers} />
+        <LiveCarousel streamers={liveStreamers} refreshKey={lastUpdated?.getTime()} />
         
         {/* 구분선 */}
         <div className="mx-8 border-t border-zinc-800" />

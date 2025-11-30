@@ -5,9 +5,10 @@ import LiveCard from './LiveCard';
 
 interface LiveCarouselProps {
   streamers: Streamer[];
+  refreshKey?: number;
 }
 
-export default function LiveCarousel({ streamers }: LiveCarouselProps) {
+export default function LiveCarousel({ streamers, refreshKey }: LiveCarouselProps) {
   if (streamers.length === 0) {
     return (
       <section className="py-6">
@@ -27,7 +28,7 @@ export default function LiveCarousel({ streamers }: LiveCarouselProps) {
       <div className="px-8 pb-2">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
           {streamers.map((streamer) => (
-            <LiveCard key={streamer.id} streamer={streamer} />
+            <LiveCard key={streamer.id} streamer={streamer} refreshKey={refreshKey} />
           ))}
         </div>
       </div>
